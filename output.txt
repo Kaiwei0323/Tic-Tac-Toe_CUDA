@@ -1,0 +1,52 @@
+./tic-tac-toe.exe
+1m-1m-1
+-1m-1m-1
+-1m-1m-1
+1m-1m-1
+-1m-1m-1
+-1m-1m0
+1m-1m-1
+-1m-1m-1
+-1m-1m0
+1m-1m-1
+-1m-1m-1
+0m-1m0
+1m1m-1
+-1m-1m-1
+0m-1m0
+1m1m-1
+-1m0m-1
+0m-1m0
+1m1m-1
+-1m0m-1
+0m1m0
+1m1m0
+-1m0m-1
+0m1m0
+1m1m0
+-1m0m1
+0m1m0
+Number of GPU Devices: 1
+Device Number: 0
+  Device name: NVIDIA GeForce RTX 3080 Laptop GPU
+  Device Compute Major: 8 Minor: 6
+  Max Thread Dimensions: [1024][1024][64]
+  Max Threads Per Block: 1024
+  Number of Multiprocessors: 48
+  Device Clock Rate (KHz): 1365000
+  Memory Bus Width (bits): 256
+  Registers Per Block: 65536
+  Registers Per Multiprocessor: 65536
+  Shared Memory Per Block: 49152
+  Shared Memory Per Multiprocessor: 102400
+  Total Constant Memory (bytes): 65536
+  Total Global Memory (bytes): 17179344896
+  Warp Size: 32
+  Peak Memory Bandwidth (GB/s): 384.064000
+
+The chosen GPU device has an index of: 0
+O|O|X
+-----
+ |X|O
+-----
+X|O|X
