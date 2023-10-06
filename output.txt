@@ -18,8 +18,12 @@ Device Number: 0
   Peak Memory Bandwidth (GB/s): 384.064000
 
 The chosen GPU device has an index of: 0
+Result: Tie
+X|X|O
+-----
 O|O|X
 -----
- |X|O
------
-X|O|X
+X|O|O
+
+Pres Any Key to Rematch Or Enter -1 to Exit
+-------------------------------------------
