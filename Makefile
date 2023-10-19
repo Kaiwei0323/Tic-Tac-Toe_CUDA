@@ -18,6 +18,6 @@ clean:
 	rm -f tic-tac-toe.exe
 
 run:
-	./tic-tac-toe.exe
+	./tic-tac-toe.exe > output.txt
 
 all: clean build run

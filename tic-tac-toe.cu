@@ -245,28 +245,43 @@ __host__ void cleanUpDevice()
 
 __host__ void executeKernel(int *d_matrix, int *d_line, int numElements, int threadsPerBlock, int *h_matrix, int *h_line)
 {
+
+    int num_gpus = 0;
+    cudaGetDeviceCount(&num_gpus);
+
     // Launch the search CUDA Kernel
     int blocksPerGrid =(1 + threadsPerBlock - 1) / threadsPerBlock;
-    
-
     
     int result = -1;
     for(int i = 0; i < numElements; i++){
         if(i % 2 == 0){
-            cudaStream_t stream_player1;
-            cudaStreamCreate(&stream_player1);
-            tic_tac_toe<<<blocksPerGrid, threadsPerBlock, 0, stream_player1>>>(d_matrix, d_line, numElements, 1);
-            cudaDeviceSynchronize();
-            cudaStreamDestroy(stream_player1);
+            if(num_gpus > 1){
+                tic_tac_toe<<<blocksPerGrid, threadsPerBlock>>>(d_matrix, d_line, numElements, 1);
+                cudaDeviceSynchronize();
+                cudaSetDevice(1);    
+            }
+            else{
+                cudaStream_t stream_player1;
+                cudaStreamCreate(&stream_player1);
+                tic_tac_toe<<<blocksPerGrid, threadsPerBlock, 0, stream_player1>>>(d_matrix, d_line, numElements, 1);
+                cudaDeviceSynchronize();
+                cudaStreamDestroy(stream_player1);
+            }
         }
         else{
-            cudaStream_t stream_player2;
-            cudaStreamCreate(&stream_player2);
-            tic_tac_toe<<<blocksPerGrid, threadsPerBlock, 0, stream_player2>>>(d_matrix, d_line, numElements, -1);
-            cudaDeviceSynchronize();
-            cudaStreamDestroy(stream_player2);
+            if(num_gpus > 1){
+                tic_tac_toe<<<blocksPerGrid, threadsPerBlock>>>(d_matrix, d_line, numElements, -1);
+                cudaDeviceSynchronize();
+                cudaSetDevice(0);    
+            }
+            else{
+                cudaStream_t stream_player2;
+                cudaStreamCreate(&stream_player2);
+                tic_tac_toe<<<blocksPerGrid, threadsPerBlock, 0, stream_player2>>>(d_matrix, d_line, numElements, -1);
+                cudaDeviceSynchronize();
+                cudaStreamDestroy(stream_player2);
+            }
         }
-
         copyFromDeviceToHost(d_matrix, h_matrix, d_line, h_line, sqrt(numElements));
 
         for(int l = 0; l < 8; l++){
@@ -364,10 +379,6 @@ __host__ void showAllCudaDevice(){
 int main(int argc, char *argv[])
 {
     showAllCudaDevice();
-
-    int num_gpus = 0;
-    cudaGetDeviceCount(&num_gpus);
-
 
 
     int matrix_size = 3;

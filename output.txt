@@ -1,4 +1,3 @@
-./tic-tac-toe.exe
 Number of GPU Devices: 1
 Device Number: 0
   Device name: NVIDIA GeForce RTX 3080 Laptop GPU
